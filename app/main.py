@@ -2,6 +2,7 @@ import asyncio
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from prometheus_client import make_asgi_app
 from pydantic import BaseModel
 
 from app.batcher import MicroBatcher
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="30Sekunden Comment Classifier", lifespan=lifespan)
+app.mount("/metrics", make_asgi_app())
 
 
 class ClassifyRequest(BaseModel):
