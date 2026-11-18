@@ -21,8 +21,14 @@ Das Modell wählt für jeden Kommentar eines dieser Labels:
 | Off-Topic oder Spam | Kommentare ohne Bezug zum Artikel |
 
 Als Hypothese verwendet die Pipeline den Satz `"Dieser Kommentar ist {}."`.
-Hinweis: `bart-large-mnli` wurde auf Englisch trainiert. Deutsche Kommentare werden
-klassifiziert, aber weniger zuverlässig.
+
+> [!NOTE]
+> **Grenzen des Modells**
+>
+> - `bart-large-mnli` wurde auf Englisch trainiert. Deutsche Kommentare werden
+>   klassifiziert, aber weniger zuverlässig.
+> - Im Loadtest wurde das Label "Sarkasmus oder Ironie" nie vergeben: Ironie lässt sich
+>   ohne Training und Kontext kaum erkennen.
 
 ## Starten
 
