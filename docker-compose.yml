@@ -1,0 +1,25 @@
+services:
+  classifier-service:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      BATCH_WINDOW_MS: "200"
+      MAX_BATCH_SIZE: "8"
+    volumes:
+      # Keeps the downloaded model between restarts.
+      - hf-cache:/root/.cache/huggingface
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - classifier-service
+
+volumes:
+  hf-cache:
+    # Fixed name so the volume with the already downloaded model is reused.
+    name: hf-cache
